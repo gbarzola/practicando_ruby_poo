@@ -72,6 +72,8 @@ class Factory
         end
     end
 end
+
+
 require "singleton"
 class Concurso
     include Singleton
@@ -82,7 +84,13 @@ class Concurso
 	end
 	def registrar(categoria,*arg)
 	    envio = Factory.crear_participante(categoria,*arg)
-		arreglo_participantes.push(envio)
+	        begin
+	            raise "Puntaje invalido es menor que cero o mayor que 100" if (envio.puntaje_jurado<0 or envio.puntaje_jurado>100 or envio.puntaje_publico<0 or envio.puntaje_publico>100)
+		        arreglo_participantes.push(envio)
+		    rescue Exception=>e
+		        puts "Operador: La base de  datos no acepta negativos" 
+		        raise e.message
+		    end
 	end
 	def obtener_lista_todos
 	    puts "***Listado de envios***"
@@ -145,6 +153,11 @@ concurso.registrar("Profesional","87665331","GAS","27",60,80,11)
 concurso.registrar("Amateur","87665131","GDS","28",50,90)
 concurso.registrar("Master","87665031","GFS","29",40,80)
 concurso.registrar("Profesional","87665831","GGS","22",30,90,9)
+
 concurso.obtener_lista_todos
 concurso.ganador_concurso
 concurso.ganador_segun_categoria
+puts "---"
+concurso1 = Concurso.instance
+concurso1.registrar("Profesional","87665831","GGS","22",-90,90,9)
+concurso1.obtener_lista_todos
