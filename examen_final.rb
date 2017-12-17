@@ -72,8 +72,10 @@ class Factory
         end
     end
 end
-
+require "singleton"
 class Concurso
+    include Singleton
+    
     attr_accessor :arreglo_participantes
 	def initialize
 		@arreglo_participantes = Array.new # []
@@ -136,7 +138,8 @@ class Concurso
 	
 end
 
-concurso = Concurso.new
+#concurso = Concurso.new
+concurso = Concurso.instance
 concurso.registrar("Amateur","87665431","GBS","26",70,90)
 concurso.registrar("Profesional","87665331","GAS","27",60,80,11)
 concurso.registrar("Amateur","87665131","GDS","28",50,90)
