@@ -43,9 +43,6 @@ class Master < Participante
     end
 end
 
-class Concurso
-end
-
 class Factory 
     def self.crear_participante(categoria, *arg)
         case categoria
@@ -58,3 +55,32 @@ class Factory
         end
     end
 end
+
+class Concurso
+    attr_accessor :arreglo_participantes
+	def initialize
+		@arreglo_participantes = Array.new # []
+	end
+	def registrar(participante)
+		arreglo_participantes.push(participante)
+	end
+	def obtener_lista_todos
+	    puts "***Listado de envios***"
+        for p in arreglo_participantes
+            puts "#{p.dni} #{p.nombre} #{p.edad} #{p.puntaje_jurado} #{p.puntaje_publico} "
+        end
+	end
+end
+
+concurso = Concurso.new
+p1 = Participante.new("87665431","GBS","26",70,90)
+p2 = Participante.new("87665331","GAS","27",60,80)
+p3 = Participante.new("87665131","GDS","28",50,90)
+p4 = Participante.new("87665031","GFS","29",40,80)
+p5 = Participante.new("87665831","GGS","22",30,90)
+concurso.registrar(p1)
+concurso.registrar(p2)
+concurso.registrar(p3)
+concurso.registrar(p4)
+concurso.registrar(p5)
+concurso.obtener_lista_todos
