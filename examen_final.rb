@@ -10,7 +10,6 @@ class Participante
     end
     
     def puntaje_final
-        
     end
 end
 
@@ -44,5 +43,18 @@ class Master < Participante
     end
 end
 
-class Administrador
+class Concurso
+end
+
+class Factory 
+    def self.crear_participante(categoria, *arg)
+        case categoria
+        when "amateur"
+            Amateur.new(arg[0],arg[1],arg[2],arg[3],arg[4])
+        when "profesional"
+            Profesional.new(arg[0],arg[1],arg[2],arg[3],arg[4],arg[5])
+        when "master"
+            Master.new(arg[0],arg[1],arg[2],arg[3],arg[4])
+        end
+    end
 end
