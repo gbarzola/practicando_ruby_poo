@@ -100,6 +100,40 @@ class Concurso
 	    puts "Ganador :"
 	    puts "#{ganador.dni} #{ganador.nombre} #{ganador.edad} #{ganador.puntaje_jurado} #{ganador.puntaje_publico} #{ganador.calcular_puntaje_final}"
 	end
+	def ganador_segun_categoria
+	    maximo_puntaje_amateur = 0
+	    maximo_puntaje_profesional = 0
+	    maximo_puntaje_master = 0
+	    ganador_master = []
+	    ganador_profesional = []
+	    ganador_master = []
+	    for p in arreglo_participantes
+	        case p.dame_tipo_envio
+            when "Amateur"
+                if  p.calcular_puntaje_final > maximo_puntaje_amateur
+	            maximo_puntaje_amateur = p.calcular_puntaje_final
+	            ganador_amateur = p
+	            end 
+            when "Profesional"
+                if  p.calcular_puntaje_final > maximo_puntaje_profesional
+	            maximo_puntaje_profesional = p.calcular_puntaje_final
+	            ganador_profesional = p
+	            end
+            when "Master"
+                if  p.calcular_puntaje_final > maximo_puntaje_master
+	            maximo_puntaje_master = p.calcular_puntaje_final
+	            ganador_master = p
+	            end
+            end
+	    end
+	    puts "Ganador Amateur:"
+	    puts "#{ganador_amateur.dni} #{ganador_amateur.nombre} #{ganador_amateur.edad} #{ganador_amateur.puntaje_jurado} #{ganador_amateur.puntaje_publico} #{ganador_amateur.calcular_puntaje_final}"
+	    puts "Ganador Profesional:"
+	    puts "#{ganador_profesional.dni} #{ganador_profesional.nombre} #{ganador_profesional.edad} #{ganador_profesional.puntaje_jurado} #{ganador_profesional.puntaje_publico} #{ganador_profesional.calcular_puntaje_final}"
+	    puts "Ganador Master:"
+	    puts "#{ganador_master.dni} #{ganador_master.nombre} #{ganador_master.edad} #{ganador_master.puntaje_jurado} #{ganador_master.puntaje_publico} #{ganador_master.calcular_puntaje_final}"
+	end
+	
 end
 
 concurso = Concurso.new
@@ -110,3 +144,4 @@ concurso.registrar("Master","87665031","GFS","29",40,80)
 concurso.registrar("Profesional","87665831","GGS","22",30,90,9)
 concurso.obtener_lista_todos
 concurso.ganador_concurso
+concurso.ganador_segun_categoria
